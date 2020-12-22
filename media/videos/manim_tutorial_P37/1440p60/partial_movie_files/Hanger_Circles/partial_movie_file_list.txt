@@ -1,0 +1,7 @@
+file 'file:D:/manim_master/media/videos/manim_tutorial_P37/1440p60/partial_movie_files/Hanger_Circles/00000.mp4'
+file 'file:D:/manim_master/media/videos/manim_tutorial_P37/1440p60/partial_movie_files/Hanger_Circles/00001.mp4'
+file 'file:D:/manim_master/media/videos/manim_tutorial_P37/1440p60/partial_movie_files/Hanger_Circles/00002.mp4'
+file 'file:D:/manim_master/media/videos/manim_tutorial_P37/1440p60/partial_movie_files/Hanger_Circles/00003.mp4'
+file 'file:D:/manim_master/media/videos/manim_tutorial_P37/1440p60/partial_movie_files/Hanger_Circles/00004.mp4'
+file 'file:D:/manim_master/media/videos/manim_tutorial_P37/1440p60/partial_movie_files/Hanger_Circles/00005.mp4'
+file 'file:D:/manim_master/media/videos/manim_tutorial_P37/1440p60/partial_movie_files/Hanger_Circles/00006.mp4'
