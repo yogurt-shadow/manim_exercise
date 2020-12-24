@@ -94,7 +94,6 @@ class WarpSquare(Scene):
         ))
         self.wait()
 
-
 class WriteStuff(Scene):
     def construct(self):
         example_text = TextMobject(
@@ -108,9 +107,10 @@ class WriteStuff(Scene):
         group.arrange(DOWN)
         group.set_width(FRAME_WIDTH - 2 * LARGE_BUFF)
 
-        self.play(Write(example_text))
-        self.play(Write(example_tex))
+        self.play(Write(example_text),
+        Write(example_tex))
         self.wait()
+
 
 
 class UpdatersExample(Scene):

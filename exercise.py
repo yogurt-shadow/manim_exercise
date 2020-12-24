@@ -1,6 +1,7 @@
 from manimlib.imports import *
 import os
 import pyclbr
+import math
 
 class Hello_world(Scene):
     def construct(self):
@@ -256,3 +257,237 @@ class moveText(Scene):
         self.play(FadeIn(label2_group))
         self.play(FadeIn(label3))
         self.wait(2)
+
+class FL(Scene):
+    def construct(self):
+        title = TextMobject("This is some \\LaTeX")
+        base1 = TexMobject(
+        "\\sum_{n=1}^\\infty "
+        "\\frac{1}{n^2} = \\frac{\\pi^2}{6}"
+        )
+
+        VGroup(title, base1).arrange(DOWN)
+        self.play(
+        Write(title),
+        FadeInFrom(base1, UP)
+        )
+        self.wait(2)
+
+'''
+TexMobject
+TextMobject
+'''
+
+
+class FL2(Scene):
+    def construct(self):
+        title = TextMobject("This is some \\LaTeX")
+        base1 = TexMobject(
+        "\\sum_{n=1}^\\infty "
+        "\\frac{1}{n^2} = \\frac{\\pi^2}{6}"
+        )
+
+        VGroup(title, base1).arrange(DOWN)
+        self.play(
+        Write(title),
+        FadeInFrom(base1, UP)
+        )
+        self.wait(2)
+
+
+class PF(GraphScene):
+    CONFIG = {
+    "x_min": -10,
+    "x_max": 10.3,
+    "y_min": -1.5,
+    "y_max": 1.5,
+    "graph_origin": ORIGIN,
+    "function_color": RED,
+    "axis_color": GREEN,
+    "x_labeled_nums": range(-10, 12, 2),
+    "y_labeled_nums": range(-2, 2, 1),
+    }
+
+    def construct(self):
+        self.setup_axes(animate = True)
+        self.wait(2)
+        func_graph = self.get_graph(self.func_to_graph, self.function_color)
+        func_graph2 = self.get_graph(self.func_to_graph2, PURPLE)
+
+        vert_line = self.get_vertical_line_to_graph(TAU, func_graph, color=YELLOW)
+
+        graph_lab = self.get_graph_label(func_graph, label="\\cos(x)")
+        graph_lab2 = self.get_graph_label(func_graph2, label="\\sin(x)", x_val = -10,
+        direction = UP / 2)
+        two_pi = TexMobject("x = 2\\pi")
+
+        label_coord = self.input_to_graph_point(TAU, func_graph)
+        two_pi.next_to(label_coord, RIGHT + UP)
+
+        self.play(ShowCreation(func_graph), ShowCreation(func_graph2))
+        self.wait(2)
+        self.play(ShowCreation(vert_line), ShowCreation(graph_lab),
+        ShowCreation(graph_lab2), ShowCreation(two_pi))
+        self.wait(2)
+
+    def func_to_graph(self, x):
+        return np.cos(x)
+
+    def func_to_graph2(self, x):
+        return np.sin(x)
+
+
+class SP(ThreeDScene):
+    def construct(self):
+        r = 7
+        sun = Sphere(radius = 1.6)
+        planet = Sphere(radius = 0.4)
+        orbit = Circle(radius = r)
+        planet.shift(UP * r)
+        system = VGroup(orbit, sun, planet)
+        system.shift(DOWN * 2 + LEFT * 1.2)
+
+        F_vector = Vector(np.array([0, -5, 0]), color = YELLOW)
+        F_vector.next_to(planet, DOWN * 0.6)
+        F_formula = TextMobject(
+        '$\\vec{F}=G m_1 m_2 \\frac{(\\vec{r_1}\\vec{r_2})}{r^3}$', color = GOLD
+        )
+        F_formula.scale(1.5)
+
+        F_formula.rotate_about_origin(PI / 2)
+        F_formula.next_to(F_vector, LEFT * 0.4)
+
+        self.set_camera_orientation(phi = 65*PI / 180, theta = PI / 3)
+
+        self.play(ShowCreation(orbit))
+        self.wait(1)
+        self.play(FadeIn(sun), FadeInFromLarge(planet))
+        self.wait(1)
+        self.play(ShowCreation(F_vector))
+        self.play(Write(F_formula))
+        self.wait(2)
+
+class sun_system(Scene):
+    def construct(self):
+        sun = Circle(radius = 0.5, color = RED, fill_color=RED, fill_opacity = 1)
+        planet01 = Circle(radius = 0.2, color = BLUE, fill_color = BLUE, fill_opacity = 1)
+        planet01.next_to(sun, RIGHT * 1)
+
+        planet02 = Circle(radius = 0.2, color = GREEN, fill_color = GREEN, fill_opacity = 1)
+        planet02.next_to(planet01, RIGHT)
+
+        planet03 = Circle(radius = 0.2, color = YELLOW, fill_color = YELLOW, fill_opacity = 1)
+        planet03.next_to(planet02, RIGHT)
+
+        planet04 = Circle(radius = 0.2, color = MAROON, fill_color = MAROON, fill_opacity = 1)
+        planet04.next_to(planet03, RIGHT)
+
+        planet05 = Circle(radius = 0.2, color = PURPLE, fill_color = PURPLE, fill_opacity = 1)
+        planet05.next_to(planet04, RIGHT)
+
+        planet06 = Circle(radius = 0.2, color = GREY, fill_color = GREY, fill_opacity = 1)
+        planet06.next_to(planet05, RIGHT)
+
+        planet01.rotate_about_origin(PI *0.8)
+        planet02.rotate_about_origin(TAU / 10)
+        planet03.rotate_about_origin(TAU / 7)
+        planet04.rotate_about_origin(TAU / 3)
+        planet05.rotate_about_origin(TAU / 1.5)
+        planet06.rotate_about_origin(-PI / 4)
+
+        orbit01 = Circle(radius = 1, color = BLUE)
+        orbit02 = Circle(radius = 1.6, color = GREEN)
+        orbit03 = Circle(radius = 2.25, color = YELLOW)
+        orbit04 = Circle(radius = 2.9, color = MAROON)
+        orbit05 = Circle(radius = 3.525, color = PURPLE)
+        orbit06 = Circle(radius = 4.15, color = GREY)
+        orbits = VGroup(orbit01, orbit02, orbit03, orbit04, orbit05, orbit06)
+
+        group = VGroup(sun, planet01, planet02, planet03, planet04, planet05, planet06)
+
+
+        planets = VGroup(planet01, planet02, planet03, planet04, planet05, planet06)
+
+
+        theta = 0.04
+
+        speed = [3.5, 4, 2.5, 2, 1.25, 1]
+
+
+        self.play(ShowCreation(orbits))
+        self.play(GrowFromCenter(group))
+
+        for i in range(70):
+            index = [speed[m] * theta for m in range(6)]
+            self.play(
+            ApplyMethod(planet01.rotate_about_origin, index[0]),
+            ApplyMethod(planet02.rotate_about_origin, index[1]),
+            ApplyMethod(planet03.rotate_about_origin, index[2]),
+            ApplyMethod(planet04.rotate_about_origin, index[3]),
+            ApplyMethod(planet05.rotate_about_origin, index[4]),
+            ApplyMethod(planet06.rotate_about_origin, index[5])
+            )
+
+class sun_system_3d(ThreeDScene):
+    def construct(self):
+        sun = Sphere(radius = 0.5, checkerboard_colors=[RED_D, RED_E], fill_opacity = 1)
+        planet01 = Sphere(radius = 0.2, checkerboard_colors=[BLUE_D, BLUE_E], fill_color = BLUE, fill_opacity = 1)
+        planet01.next_to(sun, RIGHT * 1)
+        planet02 = Sphere(radius = 0.2, checkerboard_colors=[GREEN_D, GREEN_E], fill_opacity = 1)
+        planet02.next_to(planet01, RIGHT * 1)
+        planet03 = Sphere(radius = 0.2, checkerboard_colors=[YELLOW_D, YELLOW_E], fill_opacity = 1)
+        planet03.next_to(planet02, RIGHT)
+        planet04 = Sphere(radius = 0.2, checkerboard_colors=[MAROON_D, MAROON_E], fill_opacity = 1)
+        planet04.next_to(planet03, RIGHT)
+        planet05 = Sphere(radius = 0.2, checkerboard_colors=[PURPLE_D, PURPLE_E], fill_opacity = 1)
+        planet05.next_to(planet04, RIGHT)
+        planet06 = Sphere(radius = 0.2, checkerboard_colors=[LIGHT_GRAY, GRAY], fill_opacity = 1)
+        planet06.next_to(planet05, RIGHT)
+
+        planet01.rotate_about_origin(PI *0.8)
+        planet02.rotate_about_origin(TAU / 10)
+        planet03.rotate_about_origin(TAU / 7)
+        planet04.rotate_about_origin(TAU / 3)
+        planet05.rotate_about_origin(TAU / 1.5)
+        planet06.rotate_about_origin(-PI / 4)
+
+
+        orbit01 = Circle(radius = 1, color = BLUE)
+        orbit02 = Circle(radius = 1.6, color = GREEN)
+        orbit03 = Circle(radius = 2.25, color = YELLOW)
+        orbit04 = Circle(radius = 2.9, color = MAROON)
+        orbit05 = Circle(radius = 3.525, color = PURPLE)
+        orbit06 = Circle(radius = 4.15, color = GREY)
+        orbits = VGroup(orbit01, orbit02, orbit03, orbit04, orbit05, orbit06)
+
+        group = VGroup(sun, planet01, planet02, planet03, planet04, planet05, planet06)
+
+
+        planets = VGroup(planet01, planet02, planet03, planet04, planet05, planet06)
+
+
+        theta = 0.04
+
+        speed = [3.5, 4, 2.5, 2, 1.25, 1]
+
+        self.set_camera_orientation(phi = 65 * PI / 180, theta = PI / 3)
+        self.play(ShowCreation(orbits))
+        self.play(GrowFromCenter(group))
+
+        for i in range(70):
+            index = [speed[m] * theta for m in range(6)]
+            self.play(
+            ApplyMethod(planet01.rotate_about_origin, index[0]),
+            ApplyMethod(planet02.rotate_about_origin, index[1]),
+            ApplyMethod(planet03.rotate_about_origin, index[2]),
+            ApplyMethod(planet04.rotate_about_origin, index[3]),
+            ApplyMethod(planet05.rotate_about_origin, index[4]),
+            ApplyMethod(planet06.rotate_about_origin, index[5])
+            )
+
+class test_sphere(ThreeDScene):
+    def construct(self):
+        sun = Sphere(radius = 0.5, checkerboard_colors=[RED_D, RED_E], fill_opacity = 1)
+
+        self.set_camera_orientation(phi=65 * PI / 180, theta=PI / 3)
+        self.play(Write(sun))
