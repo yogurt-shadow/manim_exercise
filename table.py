@@ -26,3 +26,5 @@ class Polygon_and_circle(Scene):
 
         for angle in theta:
             add_point(angle)
+
+        self.wait(7)
